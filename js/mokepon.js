@@ -15,6 +15,15 @@ function iniciarJuego(){
     btnTierra.addEventListener("click", ataqueTierra);
     let btnAgua = document.getElementById("boton-agua");
     btnAgua.addEventListener("click", ataqueAgua);
+
+    let seccionAtaques = document.getElementById("elije-ataque");
+    seccionAtaques.style.display = "none";
+
+    let seccionReiniciar = document.getElementById("reinciar");
+    seccionReiniciar.style.display = "none"
+
+    let btnReiniciar = document.getElementById("boton-reiniciar");
+    btnReiniciar.addEventListener("click", reiniciarJuego);
 }
 
 function seleccionarMascotaJugador (){
@@ -56,13 +65,14 @@ function seleccionarMascotaJugador (){
         alert("No seleccionaste ninguna mascota.");
     }
 
+
 }
 function aleatorio(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min)
 }
 function seleccionarMascotaPC (){
     let spanMascotaEnemigo = document.getElementById("mascota-enemigo");
-    let spanEnemigoVidas = document.getElementById("enemigo-vidas");
+    //let spanEnemigoVidas = document.getElementById("enemigo-vidas");
     let mascotaPC = aleatorio(1, 6);
 
     if (mascotaPC == 1){
@@ -84,6 +94,12 @@ function seleccionarMascotaPC (){
         spanMascotaEnemigo.innerHTML = "Pydos";
         //alert("Seleccionaste a Pydos");
     }
+
+    let seccionAtaques = document.getElementById("elije-ataque");
+    seccionAtaques.style.display = "block";
+
+    let seccionMascota = document.getElementById("elije-mascota");
+    seccionMascota.style.display = "none";
 }
 
 function ataqueFuego(){
@@ -141,25 +157,25 @@ function mensajeAtaques (){
 function perdidosPC(){
     let spanVidasPC = document.getElementById("enemigo-vidas");
 
-    if (vidasPC > 1){
+    if (vidasPC >0){
         vidasPC = vidasPC- 1;
         spanVidasPC.innerHTML = vidasPC;
     }else {
         vidasPC = 0;
         spanVidasPC.innerHTML = vidasPC;
-        alert("El enemigo no tiene más vidas. GANASTE!")
+        //mensajeFinal("El enemigo no tiene mas vidas, GANASTE! 🙂")
     }
 }
 function perdidosJugador(){
     let spanVidasJugador = document.getElementById("jugador-vidas");
 
-    if (vidasJugador > 1){
+    if (vidasJugador >0){
         vidasJugador = vidasJugador - 1;
         spanVidasJugador.innerHTML = vidasJugador;
     }else {
         vidasJugador = 0;
         spanVidasJugador.innerHTML = vidasJugador;
-        alert("No tienes más vidas. PERDISTE!")
+        //mensajeFinal("No tienes mas vidas, PERDISTE! ☹")
         
     }
 }
@@ -167,7 +183,8 @@ function atacar(){
 
     /*let spanResultado = document.getElementById("resultado")*/
  
-
+    
+    
     if(ataqueJugador == ataquePC){
         resultado = "EMPATE 😒"
     } else if (ataqueJugador == "FUEGO" && ataquePC == "TIERRA"){
@@ -185,6 +202,36 @@ function atacar(){
     }
 
     mensajeAtaques();
+
+    if (vidasJugador == 0){
+        mensajeFinal("No tienes mas vidas, PERDISTE! ☹")
+    }else if (vidasPC == 0){
+        mensajeFinal("El enemigo no tiene mas vidas, GANASTE! 🙂")
+    }
 }
+function mensajeFinal (resultado){
+    let parrafo = document.createElement("p");
+    let seccionMensaje = document.getElementById("mensajes");
+
+    let btnFuego = document.getElementById("boton-fuego");
+    btnFuego.disabled = true;
+    let btnTierra = document.getElementById("boton-tierra");
+    btnTierra.disabled = true;
+    let btnAgua = document.getElementById("boton-agua");
+    btnAgua.disabled = true;
+
+    parrafo.innerHTML = resultado;
+    seccionMensaje.appendChild(parrafo);
+
+    let seccionReiniciar = document.getElementById("reinciar");
+    seccionReiniciar.style.display = "block"
+}
+
+function reiniciarJuego(){
+    location.reload();
+}
+
+
+
 
 window.addEventListener("load", iniciarJuego);
