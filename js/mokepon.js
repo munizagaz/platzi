@@ -96,7 +96,7 @@ function seleccionarMascotaPC (){
     }
 
     let seccionAtaques = document.getElementById("elije-ataque");
-    seccionAtaques.style.display = "block";
+    seccionAtaques.style.display = "flex";
 
     let seccionMascota = document.getElementById("elije-mascota");
     seccionMascota.style.display = "none";
@@ -148,11 +148,25 @@ function ataqueMascotaPC(){
   
 }
 function mensajeAtaques (){
-    let parrafo = document.createElement("p");
-    let seccionMensaje = document.getElementById("mensajes");
+    //let parrafo = document.createElement("p");
+    let seccionMensaje = document.getElementById("resultado");
+    let ataquesDelJugador = document.getElementById("ataques-del-jugador");
+    let ataquesDelEnemigo = document.getElementById("ataques-del-enemigo");
 
-    parrafo.innerHTML = "Tu mascota atacó con " + ataqueJugador + ", la mascota del enemigo atacó con " + ataquePC + " - " + resultado;
-    seccionMensaje.appendChild(parrafo);
+    let nuevoAtaqueDelJugador = document.createElement("p");
+    let nuevoAtaqueDelEnemigo = document.createElement("p");
+    //parrafo.innerHTML = "Tu mascota atacó con " + ataqueJugador + ", la mascota del enemigo atacó con " + ataquePC + " - " + resultado;
+    //seccionMensaje.appendChild(parrafo);
+
+    seccionMensaje.innerHTML = resultado;
+    nuevoAtaqueDelJugador.innerHTML = ataqueJugador;
+    nuevoAtaqueDelEnemigo.innerHTML = ataquePC
+
+    ataquesDelJugador.appendChild(nuevoAtaqueDelJugador);
+    ataquesDelEnemigo.appendChild(nuevoAtaqueDelEnemigo);
+    
+    //parrafo.innerHTML = "Tu mascota atacó con " + ataqueJugador + ", la mascota del enemigo atacó con " + ataquePC + " - " + resultado;
+    //seccionMensaje.appendChild(parrafo);
 }
 function perdidosPC(){
     let spanVidasPC = document.getElementById("enemigo-vidas");
@@ -210,8 +224,9 @@ function atacar(){
     }
 }
 function mensajeFinal (resultado){
-    let parrafo = document.createElement("p");
-    let seccionMensaje = document.getElementById("mensajes");
+    //let parrafo = document.createElement("p");
+    //let seccionMensaje = document.getElementById("mensajes");
+    let seccionMensaje = document.getElementById("resultado");
 
     let btnFuego = document.getElementById("boton-fuego");
     btnFuego.disabled = true;
@@ -220,8 +235,8 @@ function mensajeFinal (resultado){
     let btnAgua = document.getElementById("boton-agua");
     btnAgua.disabled = true;
 
-    parrafo.innerHTML = resultado;
-    seccionMensaje.appendChild(parrafo);
+    seccionMensaje.innerHTML = resultado;
+    //seccionMensaje.appendChild(parrafo);
 
     let seccionReiniciar = document.getElementById("reinciar");
     seccionReiniciar.style.display = "block"
